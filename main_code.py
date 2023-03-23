@@ -2,6 +2,8 @@
 Created on 16/03/2023
 @author: Bleuenn Even, Anaïs Febvre, Shaun Ferrand, Oliwier Ostasz
 """
+import random
+
 def echange_coords(grille):
     switch = False
     while not switch:
@@ -77,3 +79,57 @@ def gravité(grid):
                 grid[l][c] = grid[l-1][c]
                 grid[l-1][c] = 0
     return(grid)
+
+def elimination(grille,liste_combi,score):
+    """
+    fonction qui remplace par des zéros les valeurs dans les cases dont les 
+    coordonnées apparaissent dans liste_combi
+    rajoute à la variable score le nombre de valeurs modifiées
+    
+    Parameters
+    ----------
+    grille : tableau 2D
+    liste_combi : tableau 2D
+    score : int
+
+    Returns
+    -------
+    grille, score (modifiés)
+
+    """
+    for i in range(len(liste_combi)):
+        grille[liste_combi[i][0]][liste_combi[i][1]] = 0
+        score += 1
+    return grille, score
+
+
+def regeneration(grille,score):
+    """
+    fonction qui parcourt la grille et remplace toutes les cases vides par un 
+    bonbon d'une nouvelle couleur aléatoire, c'est à dire que les cases de 
+    valeur 0 prennent une valeur aléatoire de 1 à 4
+    si de nouvelles combinaisons créées, supprime les bonbons et ajoute points 
+    au score, puis refait tomber nouveaux bonbons avec gravité, et en génère 
+    de nouveaux jusqu'à ce qu'il n'y ait plus de combinaison
+
+    Parameters
+    ----------
+    grille : liste 2D
+    score : int
+
+    Returns
+    -------
+    grille, score
+
+    """
+    liste_combi = [-1]
+    while liste_combi != []:
+        for i in range(len(grille)):
+            for j in range(len(grille[i])):
+                if grille[i][j]==0:
+                    grille[i][j]= random.randint(1,4)
+        liste_combi = recherche_combinaison_grille(grille)
+        grille, score = elimination(grille,liste_combi,score)
+        grille = gravite(grille)
+    return grille, score
+   
