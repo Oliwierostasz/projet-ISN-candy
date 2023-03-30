@@ -24,11 +24,11 @@ def echange_coords(grille):
         
         if i == 0:
             haut = False
-        if i == len(grille):
+        if i == len(grille)-1:
             bas = False
         if j == 0:
             gauche = False
-        if j == len(grille):
+        if j == len(grille)-1:
             droite = False
             
         directions = [gauche,droite,haut,bas]
@@ -245,34 +245,38 @@ def verification_deadlock(grille):
                 column += 1
                 
                 #verifie à gauche
-                grille_verif[i][j],grille_verif[i][j-1] = grille_verif[i][j-1],grille_verif[i][j]
-                if detecte_combinaison_grille(grille_verif) != []:
-                    switch_possible == True
-                else:
+                if i != 0:
                     grille_verif[i][j],grille_verif[i][j-1] = grille_verif[i][j-1],grille_verif[i][j]
+                    if detecte_combinaison_grille(grille_verif) != []:
+                        switch_possible == True
+                    else:
+                        grille_verif[i][j],grille_verif[i][j-1] = grille_verif[i][j-1],grille_verif[i][j]
                     
                 #verifie à droite
-                grille_verif[i][j],grille_verif[i][j+1] = grille_verif[i][j+1],grille_verif[i][j]
-                if detecte_combinaison_grille(grille_verif) != []:
-                    switch_possible == True
-                else:
-                       grille_verif[i][j],grille_verif[i][j+1] = grille_verif[i][j+1],grille_verif[i][j]
+                if i != len(grille)-1:
+                    grille_verif[i][j],grille_verif[i][j+1] = grille_verif[i][j+1],grille_verif[i][j]
+                    if detecte_combinaison_grille(grille_verif) != []:
+                        switch_possible == True
+                    else:
+                           grille_verif[i][j],grille_verif[i][j+1] = grille_verif[i][j+1],grille_verif[i][j]
                     
                     
                 #verifie en haut
-                grille_verif[i][j],grille_verif[i-1][j] = grille_verif[i-1][j],grille_verif[i][j]
-                if detecte_combinaison_grille(grille_verif) != []:
-                    switch_possible == True
-                else:
-                       grille_verif[i][j],grille_verif[i-1][j] = grille_verif[i-1][j],grille_verif[i][j]
+                if j != 0:
+                    grille_verif[i][j],grille_verif[i-1][j] = grille_verif[i-1][j],grille_verif[i][j]
+                    if detecte_combinaison_grille(grille_verif) != []:
+                        switch_possible == True
+                    else:
+                           grille_verif[i][j],grille_verif[i-1][j] = grille_verif[i-1][j],grille_verif[i][j]
                         
                 #verifie en bas
-                grille_verif[i][j],grille_verif[i+1][j] = grille_verif[i+1][j],grille_verif[i][j]
-                if detecte_combinaison_grille(grille_verif) != []:
-                    switch_possible == True
-                else:
-                       grille_verif[i][j],grille_verif[i+1][j] = grille_verif[i+1][j],grille_verif[i][j]
-    
+                if j != len(grille)-1:
+                    grille_verif[i][j],grille_verif[i+1][j] = grille_verif[i+1][j],grille_verif[i][j]
+                    if detecte_combinaison_grille(grille_verif) != []:
+                        switch_possible == True
+                    else:
+                           grille_verif[i][j],grille_verif[i+1][j] = grille_verif[i+1][j],grille_verif[i][j]
+
     return switch_possible
 
 
