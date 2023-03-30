@@ -66,7 +66,7 @@ def echange_coords(grille):
     return grille
 
 
-def gravité(grid):
+def gravite(grid):
     """
     Renvoie une liste a laquelle elle a appliquée la gravité sur toutes les cases
     
