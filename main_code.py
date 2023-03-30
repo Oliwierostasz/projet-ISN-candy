@@ -4,10 +4,6 @@ Created on 16/03/2023
 """
 import random
 
-
-
-
-
 def echange_coords(grille):
     '''
     Tant qu'un changement valable n'a pas été effectué:
@@ -78,6 +74,51 @@ def echange_coords(grille):
 
     return grille
 
+def transposer_grille(grille):
+    grille_transposer=[]
+    for i in range(0,len(grille)):
+        for j in range(0,len(grille)):
+            grille_transposer=(i,j)=grille(j,i)
+    return (grille_transposer)
+
+
+def detecte_coordonnees_combinaison(grille,i,j):
+    """Renvoie une liste contenant les coordonnées de tout
+    les bonbons appartenant à la combinaison du bonbon (i,j)
+    """
+    etat_cellule=grille[i][j]
+    liste_combi=[grille[i][j]]
+    etude_colonne_ligne=[grille,transposer_grille(grille)]
+    
+    jbis = j
+    for val in etude_colonne_ligne:
+        liste_combi=[grille[i][j]]
+        while grille[i][jbis-1]==etat_cellule and jbis>=0:
+            liste_combi.append(grille[i][jbis-1])
+            jbis-=1
+        jbis=j
+        while grille[i][jbis+1]==etat_cellule and jbis<len(grille):
+            liste_combi.append(grille[i][jbis+1])
+            jbis+=1
+        if len(liste_combi)<3:
+            liste_combi=[]
+        return(liste_combi)
+    
+def recherche_combinaison_grille(grille):
+    '''parcourt toute la grille et trouve toutes les combinaisons pour les mettre dans une liste (ttes_combis)
+    parcourt ttes_combis et supprime toutes les listes dupliquées pour avoir une seule liste par combinaison dans la grille
+    renvoie la liste de ttes_combis'''
+    ttes_combis = []
+    for i in range (len(grille)):
+        for j in range(len(grille)):
+            ttes_combis.append(detecte_coordonnees_combinaison(grille,i,j))
+    parcours = 0
+    while parcours <= len(ttes_combis):
+        for n in range(parcours+1,len(ttes_combis)):
+            if ttes_combis[parcours] == ttes_combis[n]:
+                del ttes_combis[n]
+        parcours += 1
+    return ttes_combis
 
 def gravite(grid):
     """
@@ -115,7 +156,6 @@ def elimination(grille,liste_combi,score):
         score += 10
     return grille, score
 
-
 def regeneration(grille,score):
     """
     fonction qui parcourt la grille et remplace toutes les cases vides par un 
@@ -145,8 +185,7 @@ def regeneration(grille,score):
         grille, score = elimination(grille,liste_combi,score)
         grille = gravite(grille)
     return grille, score
-   
-    
+          
  def affichage_grille(grille, nb_type_bonbons):
  """
 Affiche la grille de jeu "grille" contenant au  maximum "nb_type_bonbons" couleurs de bonbons différentes.
@@ -156,59 +195,6 @@ Affiche la grille de jeu "grille" contenant au  maximum "nb_type_bonbons" couleu
     plt.draw()
     plt.pause(0.1)
     
- 
-def transposer_grille(grille):
-    grille_transposer=[]
-    for i in range(0,len(grille)):
-        for j in range(0,len(grille)):
-            grille_transposer=(i,j)=grille(j,i)
-    return (grille_transposer)
-
-
-def detecte_coordonnees_combinaison(grille,i,j):
-    """Renvoie une liste contenant les coordonnées de tout
-    les bonbons appartenant à la combinaison du bonbon (i,j)
-    """
-    etat_cellule=grille[i][j]
-    liste_combi=[grille[i][j]]
-    etude_colonne_ligne=[grille,transposer_grille(grille)]
-    
-    jbis = j
-    for val in etude_colonne_ligne:
-        liste_combi=[grille[i][j]]
-        while grille[i][jbis-1]==etat_cellule and jbis>=0:
-            liste_combi.append(grille[i][jbis-1])
-            jbis-=1
-        jbis=j
-        while grille[i][jbis+1]==etat_cellule and jbis<len(grille):
-            liste_combi.append(grille[i][jbis+1])
-            jbis+=1
-        if len(liste_combi)<3:
-            liste_combi=[]
-        return(liste_combi)
-    
-    
-    
-    
-
-
-def recherche_combinaison_grille(grille):
-    '''parcourt toute la grille et trouve toutes les combinaisons pour les mettre dans une liste (ttes_combis)
-    parcourt ttes_combis et supprime toutes les listes dupliquées pour avoir une seule liste par combinaison dans la grille
-    renvoie la liste de ttes_combis'''
-    ttes_combis = []
-    for i in range (len(grille)):
-        for j in range(len(grille)):
-            ttes_combis.append(detecte_coordonnees_combinaison(grille,i,j))
-    parcours = 0
-    while parcours <= len(ttes_combis):
-        for n in range(parcours+1,len(ttes_combis)):
-            if ttes_combis[parcours] == ttes_combis[n]:
-                del ttes_combis[n]
-        parcours += 1
-    return ttes_combis
-            
-
     
  # PROGRAMME EXECUTIF DU JEU #
     
