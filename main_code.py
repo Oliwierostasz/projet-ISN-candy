@@ -209,3 +209,22 @@ def recherche_combinaison_grille(grille):
     return ttes_combis
             
 
+    
+ # PROGRAMME EXECUTIF DU JEU #
+    
+size = 8
+grille = gen_grille_init(size)
+score=0
+score_max = 300
+nb_coups=0
+nb_coups_max = 10
+while score<score_max and nb_coups<nb_coups_max:
+    affichage_grille(grille, 4)
+    grille = echange_coords(grille)
+    liste_combis = recherche_combinaison_grille(grille)
+    while liste_combis != []:
+        grille,score = elimination(grille,liste_combi,score)
+        grille_grave = gravite (grille)
+        grille_new = regeneration(grille_grav)	
+        liste_combis = recherche_combinaison_grille(grille)
+        affiche_grille(grille)
