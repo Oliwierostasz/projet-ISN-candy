@@ -143,8 +143,8 @@ Affiche la grille de jeu "grille" contenant au  maximum "nb_type_bonbons" couleu
     plt.draw()
     plt.pause(0.1)
     
-    
-    def transposer_grille(grille):
+ 
+def transposer_grille(grille):
     grille_transposer=[]
     for i in range(0,len(grille)):
         for j in range(0,len(grille)):
