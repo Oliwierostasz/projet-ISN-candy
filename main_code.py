@@ -75,35 +75,39 @@ def echange_coords(grille):
     return grille
 
 
-def transposer_grille(grille):
-    grille_transposer=[]
-    for i in range(0,len(grille)):
-        for j in range(0,len(grille)):
-            grille_transposer=(i,j)=grille(j,i)
-    return (grille_transposer)
-
-
 def detecte_coordonnees_combinaison(grille,i,j):
     """Renvoie une liste contenant les coordonnées de tout
     les bonbons appartenant à la combinaison du bonbon (i,j)
     """
     etat_cellule=grille[i][j]
-    liste_combi=[grille[i][j]]
-    etude_colonne_ligne=[grille,transposer_grille(grille)]
     
-    jbis = j
-    for val in etude_colonne_ligne:
-        liste_combi=[grille[i][j]]
-        while grille[i][jbis-1]==etat_cellule and jbis>=0:
-            liste_combi.append(grille[i][jbis-1])
-            jbis-=1
-        jbis=j
-        while grille[i][jbis+1]==etat_cellule and jbis<len(grille):
-            liste_combi.append(grille[i][jbis+1])
-            jbis+=1
-        if len(liste_combi)<3:
+    liste_combi=[[i,j]]
+    jbis=j
+    ibis=i
+        
+    while  j+1<=len(grille)-1 and grille[i][j+1]==etat_cellule:
+        liste_combi.append([i,j+1])
+        j+=1             
+    j=jbis    
+    
+    while j-1>=0 and grille[i][j-1]==etat_cellule:
+            
+        liste_combi.append([i,j-1])
+        j-=1        
+    if len(liste_combi)<3:
             liste_combi=[]
-        return(liste_combi)
+    j=jbis     
+    while i+1 <=(len(grille)-1) and grille[i+1][j]==etat_cellule:
+        liste_combi.append([i+1,j])
+        i+=1    
+    i=ibis   
+    while i-1>=0 and grille[i-1][j]==etat_cellule:            
+        liste_combi.append([i-1,j])
+        i-=1
+    if len(liste_combi)<3:
+        liste_combi=[]            
+    return(liste_combi)
+        
 
     
 def recherche_combinaison_grille(grille):
