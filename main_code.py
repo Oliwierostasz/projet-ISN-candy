@@ -142,4 +142,36 @@ Affiche la grille de jeu "grille" contenant au  maximum "nb_type_bonbons" couleu
     plt.pause(0.1)
     plt.draw()
     plt.pause(0.1)
+    
+    
+    def transposer_grille(grille):
+    grille_transposer=[]
+    for i in range(0,len(grille)):
+        for j in range(0,len(grille)):
+            grille_transposer=(i,j)=grille(j,i)
+    return (grille_transposer)
+
+
+def detecte_coordonnees_combinaison(grille,i,j):
+    """Renvoie une liste contenant les coordonnées de tout
+    les bonbons appartenant à la combinaison du bonbon (i,j)
+    """
+    etat_cellule=grille[i][j]
+    liste_combi=[grille[i][j]]
+    etude_colonne_ligne=[grille,transposer_grille(grille)]
+    
+    jbis = j
+    for val in etude_colonne_ligne:
+        liste_combi=[grille[i][j]]
+        while grille[i][jbis-1]==etat_cellule and jbis>=0:
+            liste_combi.append(grille[i][jbis-1])
+            jbis-=1
+        jbis=j
+        while grille[i][jbis+1]==etat_cellule and jbis<len(grille):
+            liste_combi.append(grille[i][jbis+1])
+            jbis+=1
+        if len(liste_combi)<3:
+            liste_combi=[]
+        return(liste_combi)
+            
 
