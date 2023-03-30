@@ -112,7 +112,7 @@ def elimination(grille,liste_combi,score):
     """
     for i in range(len(liste_combi)):
         grille[liste_combi[i][0]][liste_combi[i][1]] = 0
-        score += 1
+        score += 10
     return grille, score
 
 
