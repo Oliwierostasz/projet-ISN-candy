@@ -74,6 +74,7 @@ def echange_coords(grille):
 
     return grille
 
+
 def transposer_grille(grille):
     grille_transposer=[]
     for i in range(0,len(grille)):
@@ -103,6 +104,7 @@ def detecte_coordonnees_combinaison(grille,i,j):
         if len(liste_combi)<3:
             liste_combi=[]
         return(liste_combi)
+
     
 def recherche_combinaison_grille(grille):
     '''parcourt toute la grille et trouve toutes les combinaisons pour les mettre dans une liste (ttes_combis)
@@ -120,6 +122,7 @@ def recherche_combinaison_grille(grille):
         parcours += 1
     return ttes_combis
 
+
 def gravite(grid):
     """
     Renvoie une liste a laquelle elle a appliquée la gravité sur toutes les cases
@@ -133,6 +136,7 @@ def gravite(grid):
                 grid[l][c] = grid[l-1][c]
                 grid[l-1][c] = 0
     return(grid)
+
 
 def elimination(grille,liste_combi,score):
     """
@@ -155,6 +159,7 @@ def elimination(grille,liste_combi,score):
         grille[liste_combi[i][0]][liste_combi[i][1]] = 0
         score += 10
     return grille, score
+
 
 def regeneration(grille,score):
     """
@@ -185,11 +190,46 @@ def regeneration(grille,score):
         grille, score = elimination(grille,liste_combi,score)
         grille = gravite(grille)
     return grille, score
-          
- def affichage_grille(grille, nb_type_bonbons):
- """
-Affiche la grille de jeu "grille" contenant au  maximum "nb_type_bonbons" couleurs de bonbons différentes.
- """
+
+
+def gen_grille_init(size):
+    """
+    fonction qui génère une liste de listes (grille) dont les valeurs
+    sont des nombres de 1 à 4, et recherche les combinaisons qui 
+    apparaissent dans cette grille. Tant qu'il existe des combinaisons,
+    remplace les valeurs par des nouvelles aléatoires jusqu'à obtenir
+    une grille de jeu sans aucune combinaison
+    
+    Parameters
+    ----------
+    size : int
+        nombre de lignes et de colonnes de la grille voulue
+        
+    Returns
+    grille (liste de listes)
+    """
+    grille = []
+    score = 0
+    for i in range(size):
+        ligne = []
+        for j in range(size):
+            ligne.append(random.randint(1,4))
+        grille.append(ligne)
+    liste_combi = recherche_combinaison_grille(grille)
+    while liste_combi != []:
+        grille, score = elimination(grille,liste_combi,0)
+        for i in range(len(grille)):
+            for j in range(len(grille[i])):
+                if grille[i][j]==0:
+                    grille[i][j]= random.randint(1,4)
+        liste_combi = recherche_combinaison_grille(grille)
+    return grille
+
+
+def affichage_grille(grille, nb_type_bonbons):
+     """
+    Affiche la grille de jeu "grille" contenant au  maximum "nb_type_bonbons" couleurs de bonbons différentes.
+    """
     plt.imshow(grille, vmin=0, vmax=nb_type_bonbons−1, cmap=’jet’)
     plt.pause(0.1)
     plt.draw()
