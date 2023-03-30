@@ -4,6 +4,18 @@ Created on 16/03/2023
 """
 import random
 
+
+
+'''
+Tant qu'un changement valable n'a pas été effectué:
+demande à l'utlisiateur un jeu de coordonnées
+vérifie s'il existe des bonbons dans les quatre directions
+propose à l'utilisateur de choisir une des directions possibles
+si ce changement créé une nouvelle combinaison, on échange les bonbons
+si ce changement ne crée pas de nouvelle combinaison, on redemande un nouveau jeu de coordonnées qui marche
+renvoie la grille avec les bonbons échangés.
+'''
+
 def echange_coords(grille):
     switch = False
     while not switch:
@@ -173,5 +185,24 @@ def detecte_coordonnees_combinaison(grille,i,j):
         if len(liste_combi)<3:
             liste_combi=[]
         return(liste_combi)
+    
+    
+    
+    
+'''parcourt toute la grille et trouve toutes les combinaisons pour les mettre dans une liste (ttes_combis)
+parcourt ttes_combis et supprime toutes les listes dupliquées pour avoir une seule liste par combinaison dans la grille'''
+
+def recherche_combinaison_grille(grille):
+    ttes_combis = []
+    for i in range (len(grille)):
+        for j in range(len(grille)):
+            ttes_combis.append(detecte_coordonnees_combinaison(grille,i,j))
+    parcours = 0
+    while parcours <= len(ttes_combis):
+        for n in range(parcours+1,len(ttes_combis)):
+            if ttes_combis[parcours] == ttes_combis[n]:
+                del ttes_combis[n]
+        parcours += 1
+    return ttes_combis
             
 
