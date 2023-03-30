@@ -250,7 +250,6 @@ while score<score_max and nb_coups<nb_coups_max:
     liste_combis = recherche_combinaison_grille(grille)
     while liste_combis != []:
         grille,score = elimination(grille,liste_combi,score)
-        grille_grave = gravite (grille)
-        grille_new = regeneration(grille_grav)	
+        grille = regeneration(grille)	
         liste_combis = recherche_combinaison_grille(grille)
         affiche_grille(grille)
