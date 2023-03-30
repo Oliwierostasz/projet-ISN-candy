@@ -229,6 +229,52 @@ def gen_grille_init(size):
         liste_combi = recherche_combinaison_grille(grille)
     return grille
 
+def verification_deadlock(grille):
+    """Cette fonction vérifie qu'il existe encore une possibilité de créer une combinaison en échangeant deux bonbons
+    Si ce n'est pas le cas, le jeu est bloqué, renvoie false
+    """
+    switch_possible = False
+    grille_verif = grille.copy()
+    line = 0
+    column = 0
+    while not switch_possible or (line == len(grille)-1 and column == len(grille)-1):
+        #tant qu'un switch possible n'est pas trouvé ou qu'on a exploré toute la grille
+        for i in range(len(grille)):
+            line += 1
+            for j in range(len(grille)):
+                column += 1
+                
+                #verifie à gauche
+                grille_verif[i][j],grille_verif[i][j-1] = grille_verif[i][j-1],grille_verif[i][j]
+                if detecte_combinaison_grille(grille_verif) != []:
+                    switch_possible == True
+                else:
+                    grille_verif[i][j],grille_verif[i][j-1] = grille_verif[i][j-1],grille_verif[i][j]
+                    
+                #verifie à droite
+                grille_verif[i][j],grille_verif[i][j+1] = grille_verif[i][j+1],grille_verif[i][j]
+                if detecte_combinaison_grille(grille_verif) != []:
+                    switch_possible == True
+                else:
+                       grille_verif[i][j],grille_verif[i][j+1] = grille_verif[i][j+1],grille_verif[i][j]
+                    
+                    
+                #verifie en haut
+                grille_verif[i][j],grille_verif[i-1][j] = grille_verif[i-1][j],grille_verif[i][j]
+                if detecte_combinaison_grille(grille_verif) != []:
+                    switch_possible == True
+                else:
+                       grille_verif[i][j],grille_verif[i-1][j] = grille_verif[i-1][j],grille_verif[i][j]
+                        
+                #verifie en bas
+                grille_verif[i][j],grille_verif[i+1][j] = grille_verif[i+1][j],grille_verif[i][j]
+                if detecte_combinaison_grille(grille_verif) != []:
+                    switch_possible == True
+                else:
+                       grille_verif[i][j],grille_verif[i+1][j] = grille_verif[i+1][j],grille_verif[i][j]
+    
+    return switch_possible
+
 
 def affichage_grille(grille, nb_type_bonbons):
      """
@@ -248,7 +294,7 @@ score=0
 score_max = 300
 nb_coups=0
 nb_coups_max = 10
-while score<score_max and nb_coups<nb_coups_max:
+while score<score_max and nb_coups<nb_coups_max and verification_deadlock(grille):
     affichage_grille(grille, 4)
     grille = echange_coords(grille)
     liste_combis = recherche_combinaison_grille(grille)
@@ -257,3 +303,9 @@ while score<score_max and nb_coups<nb_coups_max:
         grille = regeneration(grille)	
         liste_combis = recherche_combinaison_grille(grille)
         affiche_grille(grille)
+if score > score_max :
+    print(f"Félicitations vous avez gagné. Votre score est de {score}")
+if nb_coups >= nb_coups_max :
+    print(f"Vous n'avez pas réussi à atteindre l'objectif? Votre score final était de {score}")
+if not verification_deadlock(grille):
+    print(f"Plus aucune combinaison possible! Votre score final était de {score}")
