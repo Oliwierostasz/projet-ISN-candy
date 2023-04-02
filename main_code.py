@@ -36,7 +36,7 @@ def echange_coords(grille):
         directions = [gauche,droite,haut,bas]
         
         directions_possibles = []
-        for i in len(directions):
+        for i in range(len(directions)):
             if directions[i] == True:
                 directions_possibles.append(directions[i])
                 
@@ -44,7 +44,7 @@ def echange_coords(grille):
         
         if choix_directions == "gauche":
             grille[i][j],grille[i][j-1] = grille[i][j-1],grille[i][j]
-            if detecte_coordonnees_combinaison(grille) == []:
+            if detecte_coordonnees_combinaison(grille,i,j) == []:
                 grille[i][j],grille[i][j-1] = grille[i][j-1],grille[i][j]
                 print("Veuillez fournir un échange qui marche")
             else :
@@ -54,7 +54,7 @@ def echange_coords(grille):
                 
         if choix_directions == "droite":
             grille[i][j],grille[i][j+1] = grille[i][j+1],grille[i][j]
-            if detecte_coordonnees_combinaison(grille) == []:
+            if detecte_coordonnees_combinaison(grille,i,j) == []:
                 grille[i][j],grille[i][j+1] = grille[i][j+1],grille[i][j]
                 print("Veuillez fournir un échange qui marche")
             else :
@@ -64,7 +64,7 @@ def echange_coords(grille):
                 
         if choix_directions == "haut":
             grille[i][j],grille[i-1][j] = grille[i-1][j],grille[i][j]
-            if detecte_coordonnees_combinaison(grille) == []:
+            if detecte_coordonnees_combinaison(grille,i,j) == []:
                 grille[i][j],grille[i-1][j] = grille[i-1][j],grille[i][j]
                 print("Veuillez fournir un échange qui marche")
             else :
@@ -74,7 +74,7 @@ def echange_coords(grille):
                 
         if choix_directions == "bas":
             grille[i][j],grille[i+1][j] = grille[i+1][j],grille[i][j]
-            if detecte_coordonnees_combinaison(grille) == []:
+            if detecte_coordonnees_combinaison(grille,i,j) == []:
                 grille[i][j],grille[i+1][j] = grille[i+1][j],grille[i][j]
                 print("Veuillez fournir un échange qui marche")
             else :
@@ -294,6 +294,9 @@ def affichage_grille(grille, nb_type_bonbons):
     plt.pause(0.1)
     
     
+
+    
+    
  # PROGRAMME EXECUTIF DU JEU #
     
 size = 8
@@ -317,4 +320,3 @@ if compteur_coups >= nb_coups_max :
     print(f"Vous n'avez pas réussi à atteindre l'objectif? Votre score final était de {score}")
 if not verification_deadlock(grille):
     print(f"Plus aucune combinaison possible! Votre score final était de {score}")
-
