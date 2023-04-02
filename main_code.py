@@ -2,6 +2,7 @@
 Created on 16/03/2023
 @author: Bleuenn Even, Anaïs Febvre, Shaun Ferrand, Oliwier Ostasz
 """
+import matplotlib.pyplot as plt
 import random
 
 def echange_coords(grille):
@@ -14,6 +15,7 @@ def echange_coords(grille):
     si ce changement ne crée pas de nouvelle combinaison, on redemande un nouveau jeu de coordonnées qui marche
     renvoie la grille avec les bonbons échangés.
     '''
+    compteur_coups = 0
     switch = False
     while not switch:
 
@@ -42,37 +44,44 @@ def echange_coords(grille):
         
         if choix_directions == "gauche":
             grille[i][j],grille[i][j-1] = grille[i][j-1],grille[i][j]
-            if detecte_combinaison_grille(grille) == []:
+            if detecte_coordonnees_combinaison(grille) == []:
                 grille[i][j],grille[i][j-1] = grille[i][j-1],grille[i][j]
                 print("Veuillez fournir un échange qui marche")
             else :
                 switch = True
+                compteur_coups += 1
+
                 
         if choix_directions == "droite":
             grille[i][j],grille[i][j+1] = grille[i][j+1],grille[i][j]
-            if detecte_combinaison_grille(grille) == []:
+            if detecte_coordonnees_combinaison(grille) == []:
                 grille[i][j],grille[i][j+1] = grille[i][j+1],grille[i][j]
                 print("Veuillez fournir un échange qui marche")
             else :
                 switch = True
+                compteur_coups += 1
+
                 
         if choix_directions == "haut":
             grille[i][j],grille[i-1][j] = grille[i-1][j],grille[i][j]
-            if detecte_combinaison_grille(grille) == []:
+            if detecte_coordonnees_combinaison(grille) == []:
                 grille[i][j],grille[i-1][j] = grille[i-1][j],grille[i][j]
                 print("Veuillez fournir un échange qui marche")
             else :
                 switch = True
+                compteur_coups += 1
+
                 
         if choix_directions == "bas":
             grille[i][j],grille[i+1][j] = grille[i+1][j],grille[i][j]
-            if detecte_combinaison_grille(grille) == []:
+            if detecte_coordonnees_combinaison(grille) == []:
                 grille[i][j],grille[i+1][j] = grille[i+1][j],grille[i][j]
                 print("Veuillez fournir un échange qui marche")
             else :
                 switch = True
+                compteur_coups += 1
 
-    return grille
+    return grille,compteur_coups
 
 
 def detecte_coordonnees_combinaison(grille,i,j):
@@ -153,11 +162,9 @@ def elimination(grille,liste_combi,score):
     grille : tableau 2D
     liste_combi : tableau 2D
     score : int
-
     Returns
     -------
     grille, score (modifiés)
-
     """
     for i in range(len(liste_combi)):
         grille[liste_combi[i][0]][liste_combi[i][1]] = 0
@@ -173,16 +180,13 @@ def regeneration(grille,score):
     si de nouvelles combinaisons créées, supprime les bonbons et ajoute points 
     au score, puis refait tomber nouveaux bonbons avec gravité, et en génère 
     de nouveaux jusqu'à ce qu'il n'y ait plus de combinaison
-
     Parameters
     ----------
     grille : liste 2D
     score : int
-
     Returns
     -------
     grille, score
-
     """
     liste_combi = [-1]
     while liste_combi != []:
@@ -247,7 +251,7 @@ def verification_deadlock(grille):
                 #verifie à gauche
                 if i != 0:
                     grille_verif[i][j],grille_verif[i][j-1] = grille_verif[i][j-1],grille_verif[i][j]
-                    if detecte_combinaison_grille(grille_verif) != []:
+                    if detecte_coordonnees_combinaison(grille_verif) != []:
                         switch_possible == True
                     else:
                         grille_verif[i][j],grille_verif[i][j-1] = grille_verif[i][j-1],grille_verif[i][j]
@@ -255,7 +259,7 @@ def verification_deadlock(grille):
                 #verifie à droite
                 if i != len(grille)-1:
                     grille_verif[i][j],grille_verif[i][j+1] = grille_verif[i][j+1],grille_verif[i][j]
-                    if detecte_combinaison_grille(grille_verif) != []:
+                    if detecte_coordonnees_combinaison(grille_verif) != []:
                         switch_possible == True
                     else:
                            grille_verif[i][j],grille_verif[i][j+1] = grille_verif[i][j+1],grille_verif[i][j]
@@ -264,7 +268,7 @@ def verification_deadlock(grille):
                 #verifie en haut
                 if j != 0:
                     grille_verif[i][j],grille_verif[i-1][j] = grille_verif[i-1][j],grille_verif[i][j]
-                    if detecte_combinaison_grille(grille_verif) != []:
+                    if detecte_coordonnees_combinaison(grille_verif) != []:
                         switch_possible == True
                     else:
                            grille_verif[i][j],grille_verif[i-1][j] = grille_verif[i-1][j],grille_verif[i][j]
@@ -272,7 +276,7 @@ def verification_deadlock(grille):
                 #verifie en bas
                 if j != len(grille)-1:
                     grille_verif[i][j],grille_verif[i+1][j] = grille_verif[i+1][j],grille_verif[i][j]
-                    if detecte_combinaison_grille(grille_verif) != []:
+                    if detecte_coordonnees_combinaison(grille_verif) != []:
                         switch_possible == True
                     else:
                            grille_verif[i][j],grille_verif[i+1][j] = grille_verif[i+1][j],grille_verif[i][j]
@@ -281,10 +285,10 @@ def verification_deadlock(grille):
 
 
 def affichage_grille(grille, nb_type_bonbons):
-     """
-    Affiche la grille de jeu "grille" contenant au  maximum "nb_type_bonbons" couleurs de bonbons différentes.
     """
-    plt.imshow(grille, vmin=0, vmax=nb_type_bonbons−1, cmap=’jet’)
+    Affiche la grille de jeu "grille" contenant au maximum "nb_type_bonbons" couleurs de bonbons différentes.
+    """
+    plt.imshow(grille, vmin=0, vmax=nb_type_bonbons-1, cmap='jet')
     plt.pause(0.1)
     plt.draw()
     plt.pause(0.1)
@@ -296,20 +300,21 @@ size = 8
 grille = gen_grille_init(size)
 score=0
 score_max = 300
-nb_coups=0
-nb_coups_max = 10
-while score<score_max and nb_coups<nb_coups_max and verification_deadlock(grille):
+compteur_coups=0
+nb_coups_max = 30
+while score < score_max and compteur_coups < nb_coups_max and verification_deadlock(grille):
     affichage_grille(grille, 4)
-    grille = echange_coords(grille)
+    grille,compteur_coups = echange_coords(grille)
     liste_combis = recherche_combinaison_grille(grille)
     while liste_combis != []:
-        grille,score = elimination(grille,liste_combi,score)
+        grille,score = elimination(grille,liste_combis,score)
         grille = regeneration(grille)	
         liste_combis = recherche_combinaison_grille(grille)
-        affiche_grille(grille)
+        affichage_grille(grille)
 if score > score_max :
     print(f"Félicitations vous avez gagné. Votre score est de {score}")
-if nb_coups >= nb_coups_max :
+if compteur_coups >= nb_coups_max :
     print(f"Vous n'avez pas réussi à atteindre l'objectif? Votre score final était de {score}")
 if not verification_deadlock(grille):
     print(f"Plus aucune combinaison possible! Votre score final était de {score}")
+
