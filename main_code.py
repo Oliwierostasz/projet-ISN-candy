@@ -126,7 +126,7 @@ def recherche_combinaison_grille(grille):
     ttes_combis = []
     for i in range (len(grille)):
         for j in range(len(grille)):
-            ttes_combis.append(detecte_coordonnees_combinaison(grille,i,j))
+            ttes_combis += (detecte_coordonnees_combinaison(grille,i,j))
     parcours = 0
     while parcours <= len(ttes_combis):
         for n in range(parcours+1,len(ttes_combis)):
