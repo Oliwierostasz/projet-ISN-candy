@@ -136,19 +136,24 @@ def recherche_combinaison_grille(grille):
     return ttes_combis
 
 
-def gravite(grid):
+def gravité(grille):
     """
     Renvoie une liste a laquelle elle a appliquée la gravité sur toutes les cases
     
     Parameters : Grille initiale
     Output : Grille avec gravitée appliquée
-    """ 
-    for l in range(len(grid),0,-1):
-        for c in range(len(grid)):
-            if grid[l][c] == 0:
-                grid[l][c] = grid[l-1][c]
-                grid[l-1][c] = 0
-    return(grid)
+    """
+    g = []
+    for l in grille:
+        g.append(l.copy())
+    nontrie = True
+    while nontrie: 
+        for l in range(len(g),0,-1):
+            for c in range(len(g)):
+                if g[l][c] == 0:
+                    g[l][c] = g[l-1][c]
+                    g[l-1][c] = 0
+    return(g)
 
 
 def elimination(grille,liste_combi,score):
