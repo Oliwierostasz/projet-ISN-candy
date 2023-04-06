@@ -44,7 +44,7 @@ def echange_coords(grille):
         
         if choix_directions == "gauche":
             grille[i][j],grille[i][j-1] = grille[i][j-1],grille[i][j]
-            if detecte_coordonnees_combinaison(grille,i,j) == []:
+            if recherche_combinaison_grille(grille) == []:
                 grille[i][j],grille[i][j-1] = grille[i][j-1],grille[i][j]
                 print("Veuillez fournir un échange qui marche")
             else :
@@ -54,7 +54,7 @@ def echange_coords(grille):
                 
         if choix_directions == "droite":
             grille[i][j],grille[i][j+1] = grille[i][j+1],grille[i][j]
-            if detecte_coordonnees_combinaison(grille,i,j) == []:
+            if recherche_combinaison_grille(grille) == []:
                 grille[i][j],grille[i][j+1] = grille[i][j+1],grille[i][j]
                 print("Veuillez fournir un échange qui marche")
             else :
@@ -64,7 +64,7 @@ def echange_coords(grille):
                 
         if choix_directions == "haut":
             grille[i][j],grille[i-1][j] = grille[i-1][j],grille[i][j]
-            if detecte_coordonnees_combinaison(grille,i,j) == []:
+            if recherche_combinaison_grille(grille) == []:
                 grille[i][j],grille[i-1][j] = grille[i-1][j],grille[i][j]
                 print("Veuillez fournir un échange qui marche")
             else :
@@ -74,7 +74,7 @@ def echange_coords(grille):
                 
         if choix_directions == "bas":
             grille[i][j],grille[i+1][j] = grille[i+1][j],grille[i][j]
-            if detecte_coordonnees_combinaison(grille,i,j) == []:
+            if recherche_combinaison_grille(grille) == []:
                 grille[i][j],grille[i+1][j] = grille[i+1][j],grille[i][j]
                 print("Veuillez fournir un échange qui marche")
             else :
