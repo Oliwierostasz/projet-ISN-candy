@@ -167,12 +167,16 @@ def elimination(grille,liste_combi,score):
     grille : tableau 2D
     liste_combi : tableau 2D
     score : int
+
     Returns
     -------
     grille, score (modifiés)
+
     """
     for i in range(len(liste_combi)):
-        grille[liste_combi[i][0]][liste_combi[i][1]] = 0
+        x = liste_combi[i][0]
+        y = liste_combi[i][1]
+        grille[x][y] = 0
         score += 10
     return grille, score
 
