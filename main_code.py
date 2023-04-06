@@ -46,7 +46,7 @@ def echange_coords(grille):
             grille[i][j],grille[i][j-1] = grille[i][j-1],grille[i][j]
             if recherche_combinaison_grille(grille) == []:
                 grille[i][j],grille[i][j-1] = grille[i][j-1],grille[i][j]
-                print("Veuillez fournir un échange qui marche")
+                print("Veuillez jouer un coup valable qui créé une combinaison")
             else :
                 switch = True
                 compteur_coups += 1
@@ -56,7 +56,7 @@ def echange_coords(grille):
             grille[i][j],grille[i][j+1] = grille[i][j+1],grille[i][j]
             if recherche_combinaison_grille(grille) == []:
                 grille[i][j],grille[i][j+1] = grille[i][j+1],grille[i][j]
-                print("Veuillez fournir un échange qui marche")
+                print("Veuillez jouer un coup valable qui créé une combinaison")
             else :
                 switch = True
                 compteur_coups += 1
@@ -66,7 +66,7 @@ def echange_coords(grille):
             grille[i][j],grille[i-1][j] = grille[i-1][j],grille[i][j]
             if recherche_combinaison_grille(grille) == []:
                 grille[i][j],grille[i-1][j] = grille[i-1][j],grille[i][j]
-                print("Veuillez fournir un échange qui marche")
+                print("Veuillez jouer un coup valable qui créé une combinaison")
             else :
                 switch = True
                 compteur_coups += 1
@@ -76,7 +76,7 @@ def echange_coords(grille):
             grille[i][j],grille[i+1][j] = grille[i+1][j],grille[i][j]
             if recherche_combinaison_grille(grille) == []:
                 grille[i][j],grille[i+1][j] = grille[i+1][j],grille[i][j]
-                print("Veuillez fournir un échange qui marche")
+                print("Veuillez jouer un coup valable qui créé une combinaison")
             else :
                 switch = True
                 compteur_coups += 1
