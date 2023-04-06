@@ -308,6 +308,7 @@ nb_coups_max = 30
 while score < score_max and compteur_coups < nb_coups_max and verification_deadlock(grille):
     affichage_grille(grille, 4)
     grille,compteur_coups = echange_coords(grille)
+    print(f"Il vous reste {compteur_coups} coups sur {nb_coups_max}")
     liste_combis = recherche_combinaison_grille(grille)
     while liste_combis != []:
         grille,score = elimination(grille,liste_combis,score)
