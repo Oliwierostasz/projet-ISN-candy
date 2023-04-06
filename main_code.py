@@ -135,8 +135,29 @@ def recherche_combinaison_grille(grille):
         parcours += 1
     return ttes_combis
 
+def test_detecte_coordonnees_combinaison():
+    """
+    Test la fonction detecte_coordonnees_combinaison(grille, i, j).
+    Pour chaque cas de test, affiche True si le test passe, False sinon
+    """
+    #fonction détecte coordonnées combinaison commence par coordonnées du point, 
+    #puis du regarde du milieu vers le haut, puis repart du milieu et va vers le 
+    #bas, puis vers la gauche, puis vers la droite
+    
+    # Test1: bonbon situé sur la colonne la plus à gauche, sur la 2e ligne
+    grille = [[1,2,3,4],[1,1,1,1],[1,3,4,4],[2,2,3,1]]
+    i = 1
+    j = 0
+    print(detecte_coordonnees_combinaison(grille,i,j) == [[i,j],[0,0],[2,0],[1,1],[1,2],[1,3]])
+          
+    # Test2 : bonbon situé à aucune ligne ou colonne extrême et qui fait combinaison dans tous les sens    
+    grille=[[1,2,3,4],[2,2,2,2],[1,2,3,4],[1,2,3,4]]
+    i = 1
+    j = 1
+    print(detecte_coordonnees_combinaison(grille,i,j) == [[i,j],[0,1],[2,1],[3,1],[1,0],[1,2],[1,3]])
 
-def gravité(grille):
+    
+def gravite(grille):
     """
     Renvoie une liste a laquelle elle a appliquée la gravité sur toutes les cases
     
@@ -241,6 +262,7 @@ def gen_grille_init(size):
                     grille[i][j]= random.randint(1,4)
         liste_combi = recherche_combinaison_grille(grille)
     return grille
+
 
 def verification_deadlock(grille):
     """Cette fonction vérifie qu'il existe encore une possibilité de créer une combinaison en échangeant deux bonbons
