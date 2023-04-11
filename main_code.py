@@ -84,38 +84,73 @@ def echange_coords(grille):
     return grille,compteur_coups
 
 
+def scotch(grille):
+    """à patir d'une grille donnée, renvoie cette même grille entouré d'un scotch(de 0)
+    """
+    grille_scotch=[]
+    ligne=[]
+    for i in range (len(grille)+2):
+        ligne.append(0)
+    grille_scotch.append(ligne)
+    ligne_s=[]
+    for i in range (len(grille)):
+        ligne_s.append(0)
+        for j in range(len(grille)):
+            ligne_s.append(grille[i][j])
+        ligne_s.append(0)
+        grille_scotch.append(ligne_s)
+        ligne_s=[]
+    grille_scotch.append(ligne)
+    return (grille_scotch)    
+
+
 def detecte_coordonnees_combinaison(grille,i,j):
     """Renvoie une liste contenant les coordonnées de tout
     les bonbons appartenant à la combinaison du bonbon (i,j)
     """
-    etat_cellule=grille[i][j]
+    ##on utilise i et j pour la grille sans scotch et ibis et jbis sont les meme bonbon mais pour la grille avec scotch
+    ##ajout du scotch à la grille donné 
+    grille_combi=scotch(grille)
+    ##comme grille entourée du scotch, on rajoute +1 au coordonnée du bonbon que l'on appelera ibis et jbis 
+    ibis=i+1
+    jbis=j+1
+    etat_bonbon=grille_combi[ibis][jbis] ##correspond au nombre que porte la case 
+    liste_combi=[] ##liste combinaison locale  
+    liste_combi_f=[]## liste combinaison final
     
-    liste_combi=[[i,j]]
-    jbis=j
-    ibis=i
+    while ibis>0 and grille_combi[ibis-1][jbis]==etat_bonbon: ##on monte d'abord 
+        ibis-=1
+        liste_combi.append([ibis-1,jbis-1])
+    ibis=i+1##on réinitialise ibis a la position du bonbon 
+    
+    while ibis<(len(grille_combi)-1) and grille_combi[ibis+1][jbis]==etat_bonbon: ##on descend 
+        ibis+=1
+        liste_combi.append([ibis-1,jbis-1])
+    ibis=i+1 ##on réinitialise ibis à la position du bonbon 
+    if len(liste_combi)<2:
+        liste_combi=[]
+    else:liste_combi_f+=liste_combi
+    
+    liste_combi=[]  ##on réinitialise la liste de combinaison (on s'occupe maitenant de la ligne) 
+    while jbis>0 and grille_combi[ibis][jbis-1]==etat_bonbon:## a gauche
+        jbis-=1
+        liste_combi.append([ibis-1,jbis-1])
+    
+    jbis=j+1 ##on réinitialise jbis à la position du bonbon 
+    
+    while jbis<(len(grille_combi)-1) and grille_combi[ibis][jbis+1]==etat_bonbon: ##à droite
+        jbis+=1
+        liste_combi.append([ibis-1,jbis-1])
+    jbis=i+1 ##on réinitialise jbis à la position du bonbon 
+    if len(liste_combi)<2:
+        liste_combi=[]
+    else:liste_combi_f+=liste_combi
+    
+    
+    if len(liste_combi_f)>=2:
+        liste_combi_f.append([i,j])
         
-    while  j+1<=len(grille)-1 and grille[i][j+1]==etat_cellule:
-        liste_combi.append([i,j+1])
-        j+=1             
-    j=jbis    
-    
-    while j-1>=0 and grille[i][j-1]==etat_cellule:
-            
-        liste_combi.append([i,j-1])
-        j-=1        
-    if len(liste_combi)<3:
-            liste_combi=[]
-    j=jbis     
-    while i+1 <=(len(grille)-1) and grille[i+1][j]==etat_cellule:
-        liste_combi.append([i+1,j])
-        i+=1    
-    i=ibis   
-    while i-1>=0 and grille[i-1][j]==etat_cellule:            
-        liste_combi.append([i-1,j])
-        i-=1
-    if len(liste_combi)<3:
-        liste_combi=[]            
-    return(liste_combi)
+    return(liste_combi_f)
         
 
     
