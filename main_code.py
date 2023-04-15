@@ -5,7 +5,36 @@ Created on 16/03/2023
 import matplotlib.pyplot as plt
 import random
 
-def echange_coords(grille):
+def switch_directions(grille,i,j,choix_directions,compteur_coups):
+    '''Automatise les changements de bonbons en fonction de la direction
+    a besoin de la direction, des coordonnées du bonbon visé, de la grille et du compteur de coups
+    effectue le changement;
+    s'il n'est pas valable, switch = False, le compteur ne varie pas, la grille revient à son état d'origine
+    S'il est valable, la grille est modifiée, le compteur de coups augmente, switch = true, on sort de la boucle
+    renvoie: le booléen switch, le compteur, la grille (modifiée ou non)
+    '''
+    if choix_directions == "haut":
+        a = -1
+        b = 0
+    if choix_directions == "bas":
+        a = 1
+        b = 0
+    if choix_directions == "droite":
+        a = 0
+        b = 1
+    if choix_directions == "gauche":
+        a = 0
+        b = -1
+    grille[i][j],grille[i+a][i+b]=grille[i+a][i+b],grille[i][j]
+    if recherche_combinaison_grille(grille) == []:
+        grille[i][j],grille[i+a][i+b]=grille[i+a][i+b],grille[i][j]
+        print("Veuillez jouer un coup valable qui créé une combinaison")
+    else :
+        switch = True
+        compteur_coups += 1
+    return switch,compteur_coups,grille
+
+def echange_coords(grille,compteur_coups):
     '''
     Tant qu'un changement valable n'a pas été effectué:
     demande à l'utlisiateur un jeu de coordonnées
@@ -33,53 +62,20 @@ def echange_coords(grille):
         if j == len(grille)-1:
             droite = False
             
-        directions = [gauche,droite,haut,bas]
+        directions_txt = ["gauche","droite","haut","bas"]
+        directions_bool = [gauche,droite,haut,bas]
         
         directions_possibles = []
-        for i in range(len(directions)):
-            if directions[i] == True:
-                directions_possibles.append(directions[i])
+        for i in range(len(directions_bool)):
+            if directions_bool[i] == True:
+                directions_possibles.append(directions_txt[i])
                 
         choix_directions = input(f"Veuillez choisir parmi les directions suivantes: {directions_possibles}: ")
         
-        if choix_directions == "gauche":
-            grille[i][j],grille[i][j-1] = grille[i][j-1],grille[i][j]
-            if recherche_combinaison_grille(grille) == []:
-                grille[i][j],grille[i][j-1] = grille[i][j-1],grille[i][j]
-                print("Veuillez jouer un coup valable qui créé une combinaison")
-            else :
-                switch = True
-                compteur_coups += 1
-
-                
-        if choix_directions == "droite":
-            grille[i][j],grille[i][j+1] = grille[i][j+1],grille[i][j]
-            if recherche_combinaison_grille(grille) == []:
-                grille[i][j],grille[i][j+1] = grille[i][j+1],grille[i][j]
-                print("Veuillez jouer un coup valable qui créé une combinaison")
-            else :
-                switch = True
-                compteur_coups += 1
-
-                
-        if choix_directions == "haut":
-            grille[i][j],grille[i-1][j] = grille[i-1][j],grille[i][j]
-            if recherche_combinaison_grille(grille) == []:
-                grille[i][j],grille[i-1][j] = grille[i-1][j],grille[i][j]
-                print("Veuillez jouer un coup valable qui créé une combinaison")
-            else :
-                switch = True
-                compteur_coups += 1
-
-                
-        if choix_directions == "bas":
-            grille[i][j],grille[i+1][j] = grille[i+1][j],grille[i][j]
-            if recherche_combinaison_grille(grille) == []:
-                grille[i][j],grille[i+1][j] = grille[i+1][j],grille[i][j]
-                print("Veuillez jouer un coup valable qui créé une combinaison")
-            else :
-                switch = True
-                compteur_coups += 1
+        if choix_directions not in directions_possibles:
+            print("ce n'est pas une direction valable")
+            
+        switch,compteur_coups,grille = switch_directions(grille,i,j,choix_directions,compteur_coups)
 
     return grille,compteur_coups
 
