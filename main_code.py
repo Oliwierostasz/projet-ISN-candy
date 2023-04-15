@@ -70,7 +70,7 @@ def echange_coords(grille,compteur_coups):
             if directions_bool[i] == True:
                 directions_possibles.append(directions_txt[i])
                 
-        choix_directions = input(f"Veuillez choisir parmi les directions suivantes: {directions_possibles}: ")
+        choix_directions = input(f"Veuillez choisir parmi les directions suivantes: {directions_possibles}: ").lower()
         
         if choix_directions not in directions_possibles:
             print("ce n'est pas une direction valable")
