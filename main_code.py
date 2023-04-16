@@ -157,7 +157,7 @@ def recherche_combinaison_grille(grille):
     ttes_combis = []
     for i in range (len(grille)):
         for j in range(len(grille)):
-            if detecte_coordonnees_combinaison(grille,i,j)[0] not in and detecte_coordonnees_combinaison(grille,i,j) != []
+            if (not detecte_coordonnees_combinaison(grille,i,j) in ttes_combis) and detecte_coordonnees_combinaison(grille,i,j) != []:
                 ttes_combis += (detecte_coordonnees_combinaison(grille,i,j))
     return ttes_combis
 
