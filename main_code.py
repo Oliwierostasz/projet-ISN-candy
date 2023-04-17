@@ -338,26 +338,24 @@ def affichage_grille(grille, nb_type_bonbons):
     
     
  # PROGRAMME EXECUTIF DU JEU #
-    
+
 size = 8
 grille = gen_grille_init(size)
 score=0
 score_max = 300
 compteur_coups=0
 nb_coups_max = 30
-while score < score_max and compteur_coups < nb_coups_max and verification_deadlock(grille):
+while score < score_max and compteur_coups < nb_coups_max:
     affichage_grille(grille, 4)
-    grille,compteur_coups = echange_coords(grille)
+    grille,compteur_coups = echange_coords(grille,compteur_coups)
     print(f"Il vous reste {compteur_coups} coups sur {nb_coups_max}")
     liste_combis = recherche_combinaison_grille(grille)
     while liste_combis != []:
         grille,score = elimination(grille,liste_combis,score)
-        grille = regeneration(grille)	
+        grille,score = regeneration(grille,score)	
         liste_combis = recherche_combinaison_grille(grille)
         affichage_grille(grille)
 if score > score_max :
     print(f"Félicitations vous avez gagné. Votre score est de {score}")
 if compteur_coups >= nb_coups_max :
     print(f"Vous n'avez pas réussi à atteindre l'objectif? Votre score final était de {score}")
-if not verification_deadlock(grille):
-    print(f"Plus aucune combinaison possible! Votre score final était de {score}")
