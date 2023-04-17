@@ -162,7 +162,7 @@ def recherche_combinaison_grille(grille):
     return ttes_combis
 
 
-def gravité(grille):
+def gravite(grille):
     """
     Renvoie une liste a laquelle elle a appliquée la gravité sur toutes les cases
     
