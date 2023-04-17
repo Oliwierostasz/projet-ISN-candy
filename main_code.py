@@ -13,6 +13,7 @@ def switch_directions(grille,i,j,choix_directions,compteur_coups):
     S'il est valable, la grille est modifiée, le compteur de coups augmente, switch = true, on sort de la boucle
     renvoie: le booléen switch, le compteur, la grille (modifiée ou non)
     '''
+    switch_direction = False
     if choix_directions == "haut":
         a = -1
         b = 0
@@ -30,9 +31,9 @@ def switch_directions(grille,i,j,choix_directions,compteur_coups):
         grille[i][j],grille[i+a][i+b]=grille[i+a][i+b],grille[i][j]
         print("Veuillez jouer un coup valable qui créé une combinaison")
     else :
-        switch = True
+        switch_direction = True
         compteur_coups += 1
-    return switch,compteur_coups,grille
+    return switch_direction,compteur_coups,grille
 
 def echange_coords(grille,compteur_coups):
     '''
@@ -48,10 +49,13 @@ def echange_coords(grille,compteur_coups):
     switch = False
     while not switch:
 
-        gauche,droite,haut,bas = True
+        gauche = True
+        droite = True
+        haut = True
+        bas = True
         
-        i = input("Entrer la ligne du bonbon séléctionné : ")
-        j = input("Entrer la colonne du bonbon séléctionné : ")
+        i = int(input("Entrer la ligne du bonbon séléctionné : "))
+        j = int(input("Entrer la colonne du bonbon séléctionné : "))
         
         if i == 0:
             haut = False
@@ -70,12 +74,13 @@ def echange_coords(grille,compteur_coups):
             if directions_bool[i] == True:
                 directions_possibles.append(directions_txt[i])
                 
-        choix_directions = input(f"Veuillez choisir parmi les directions suivantes: {directions_possibles}: ").lower()
-        
+        choix_directions = input("Veuillez choisir une direction parmi: " + ", ".join(directions_possibles) + "\n")
+        choix_directions = choix_directions.lower()    
+    
         if choix_directions not in directions_possibles:
             print("ce n'est pas une direction valable")
-            
-        switch,compteur_coups,grille = switch_directions(grille,i,j,choix_directions,compteur_coups)
+        else:
+            switch,compteur_coups,grille = switch_directions(grille,i,j,choix_directions,compteur_coups)
 
     return grille,compteur_coups
 
