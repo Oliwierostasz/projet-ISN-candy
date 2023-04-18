@@ -27,7 +27,7 @@ def switch_directions(grille,i,j,choix_directions,compteur_coups):
         a = 0
         b = -1
     grille[i][j],grille[i+a][j+b]=grille[i+a][j+b],grille[i][j]
-    if detecte_coordonnees_combinaison(grille,i,j) == [] and detecte_coordonnees_combinaison(grille,i+a,j+b):
+    if detecte_coordonnees_combinaison(grille,i,j) == [] and detecte_coordonnees_combinaison(grille,i+a,j+b) == []:
         grille[i][j],grille[i+a][j+b]=grille[i+a][j+b],grille[i][j]
         print("Veuillez jouer un coup valable qui créé une combinaison")
     else :
