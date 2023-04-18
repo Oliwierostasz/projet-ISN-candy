@@ -179,7 +179,7 @@ def gravite(grille):
         g.append(l.copy())
     nontrie = True
     while nontrie: 
-        for l in range(len(g),0,-1):
+        for l in range(len(g)-1,0,-1):
             for c in range(len(g)):
                 if g[l][c] == 0:
                     g[l][c] = g[l-1][c]
