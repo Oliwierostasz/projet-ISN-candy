@@ -27,7 +27,7 @@ def switch_directions(grille,i,j,choix_directions,compteur_coups):
         a = 0
         b = -1
     grille[i][j],grille[i+a][j+b]=grille[i+a][j+b],grille[i][j]
-    if recherche_combinaison_grille(grille) == []:
+    if detecte_coordonnees_combinaison(grille,i,j) == [] and detecte_coordonnees_combinaison(grille,i+a,j+b):
         grille[i][j],grille[i+a][j+b]=grille[i+a][j+b],grille[i][j]
         print("Veuillez jouer un coup valable qui créé une combinaison")
     else :
@@ -45,7 +45,6 @@ def echange_coords(grille,compteur_coups):
     si ce changement ne crée pas de nouvelle combinaison, on redemande un nouveau jeu de coordonnées qui marche
     renvoie la grille avec les bonbons échangés.
     '''
-    compteur_coups = 0
     switch = False
     while not switch:
 
