@@ -278,19 +278,15 @@ def verification_deadlock(grille):
     """
     switch_possible = False
     grille_verif = grille.copy()
-    line = 0
-    column = 0
     while not switch_possible or (line == len(grille)-1 and column == len(grille)-1):
         #tant qu'un switch possible n'est pas trouvé ou qu'on a exploré toute la grille
         for i in range(len(grille)):
-            line += 1
             for j in range(len(grille)):
-                column += 1
                 
                 #verifie à gauche
                 if i != 0:
                     grille_verif[i][j],grille_verif[i][j-1] = grille_verif[i][j-1],grille_verif[i][j]
-                    if recherche_combinaison_grille(grille_verif) != []:
+                    if detecte_coordonnees_combinaison(grille,i,j) == [] and detecte_coordonnees_combinaison(grille,i,j-1) == []:
                         switch_possible == True
                     else:
                         grille_verif[i][j],grille_verif[i][j-1] = grille_verif[i][j-1],grille_verif[i][j]
@@ -298,7 +294,7 @@ def verification_deadlock(grille):
                 #verifie à droite
                 if i != len(grille)-1:
                     grille_verif[i][j],grille_verif[i][j+1] = grille_verif[i][j+1],grille_verif[i][j]
-                    if recherche_combinaison_grille(grille_verif) != []:
+                    if detecte_coordonnees_combinaison(grille,i,j) == [] and detecte_coordonnees_combinaison(grille,i,j+1) == []:
                         switch_possible == True
                     else:
                            grille_verif[i][j],grille_verif[i][j+1] = grille_verif[i][j+1],grille_verif[i][j]
@@ -307,7 +303,7 @@ def verification_deadlock(grille):
                 #verifie en haut
                 if j != 0:
                     grille_verif[i][j],grille_verif[i-1][j] = grille_verif[i-1][j],grille_verif[i][j]
-                    if recherche_combinaison_grille(grille_verif) != []:
+                    if detecte_coordonnees_combinaison(grille,i,j) == [] and detecte_coordonnees_combinaison(grille,i-1,j) == []:
                         switch_possible == True
                     else:
                            grille_verif[i][j],grille_verif[i-1][j] = grille_verif[i-1][j],grille_verif[i][j]
@@ -315,7 +311,7 @@ def verification_deadlock(grille):
                 #verifie en bas
                 if j != len(grille)-1:
                     grille_verif[i][j],grille_verif[i+1][j] = grille_verif[i+1][j],grille_verif[i][j]
-                    if recherche_combinaison_grille(grille_verif) != []:
+                    if detecte_coordonnees_combinaison(grille,i,j) == [] and detecte_coordonnees_combinaison(grille,i+1,j) == []:
                         switch_possible == True
                     else:
                            grille_verif[i][j],grille_verif[i+1][j] = grille_verif[i+1][j],grille_verif[i][j]
