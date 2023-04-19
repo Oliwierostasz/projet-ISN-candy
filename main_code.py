@@ -278,7 +278,7 @@ def verification_deadlock(grille):
     """
     switch_possible = False
     grille_verif = grille.copy()
-    while not switch_possible or (line == len(grille)-1 and column == len(grille)-1):
+    while not switch_possible or (i == len(grille)-1 and j == len(grille)-1):
         #tant qu'un switch possible n'est pas trouvé ou qu'on a exploré toute la grille
         for i in range(len(grille)):
             for j in range(len(grille)):
