@@ -69,9 +69,9 @@ def echange_coords(grille,compteur_coups):
         directions_bool = [gauche,droite,haut,bas]
         
         directions_possibles = []
-        for i in range(len(directions_bool)):
-            if directions_bool[i] == True:
-                directions_possibles.append(directions_txt[i])
+        for k in range(len(directions_bool)):
+            if directions_bool[k] == True:
+                directions_possibles.append(directions_txt[k])
                 
         choix_directions = input("Veuillez choisir une direction parmi: " + ", ".join(directions_possibles) + "\n")
         choix_directions = choix_directions.lower()    
@@ -218,7 +218,7 @@ def regeneration(grille,score):
     valeur 0 prennent une valeur aléatoire de 1 à 4
     si de nouvelles combinaisons créées, supprime les bonbons et ajoute points 
     au score, puis refait tomber nouveaux bonbons avec gravité, et en génère 
-    de nouveaux jusqu'à ce qu'il n'y ait plus de combinaison
+    de nouveaux jusqu'à ce qu'il n'y ait plus de combinaison déjà faite
     Parameters
     ----------
     grille : liste 2D
