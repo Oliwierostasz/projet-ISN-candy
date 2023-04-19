@@ -168,8 +168,7 @@ def recherche_combinaison_grille(grille):
 
 def gravite(grille):
     """
-    fonction qui applique sur la grille la "gravité", faisant descendre dans
-    la grille les bonbons (cases de valeur non nulle) jusqu'à avoir toutes les
+    fonction qui applique sur la grille la "gravité", faisant descendre dans la grille les bonbons (cases de valeur non nulle) jusqu'à avoir toutes les
     cases vides (0) situées le plus haut possible sans aucun bonbon au dessus
 
     Parameters
