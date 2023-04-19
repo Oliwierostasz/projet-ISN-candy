@@ -168,21 +168,35 @@ def recherche_combinaison_grille(grille):
 
 def gravite(grille):
     """
-    Renvoie une liste a laquelle elle a appliquée la gravité sur toutes les cases
-    
-    Parameters : Grille initiale
-    Output : Grille avec gravitée appliquée
+    fonction qui applique sur la grille la "gravité", faisant descendre dans
+    la grille les bonbons (cases de valeur non nulle) jusqu'à avoir toutes les
+    cases vides (0) situées le plus haut possible sans aucun bonbon au dessus
+
+    Parameters
+    ----------
+    grille : liste de listes
+        la grille de jeu avec des cases vides et d'autres avec bonbons
+
+    Returns
+    -------
+    g : grille sur laquelle la gravité a été appliquée
+
     """
     g = []
     for l in grille:
         g.append(l.copy())
-    nontrie = True
-    while nontrie: 
+    trie = False
+    while not trie:
+        trie = True
         for l in range(len(g)-1,0,-1):
             for c in range(len(g)):
                 if g[l][c] == 0:
                     g[l][c] = g[l-1][c]
                     g[l-1][c] = 0
+        for l2 in range(len(g)-1,0,-1):
+            for c2 in range(len(g)):
+                if g[l2-1][c2]!=0 and g[l2][c2]==0:
+                      trie = False
     return(g)
 
 
@@ -350,7 +364,7 @@ while score < score_max and compteur_coups < nb_coups_max:
         grille,score = regeneration(grille,score)	
         liste_combis = recherche_combinaison_grille(grille)
         affichage_grille(grille)
-if score > score_max :
+if score >= score_max :
     print(f"Félicitations vous avez gagné. Votre score est de {score}")
 if compteur_coups >= nb_coups_max :
     print(f"Vous n'avez pas réussi à atteindre l'objectif? Votre score final était de {score}")
