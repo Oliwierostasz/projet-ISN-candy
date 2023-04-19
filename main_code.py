@@ -362,7 +362,7 @@ while score < score_max and compteur_coups < nb_coups_max:
         grille,score = elimination(grille,liste_combis,score)
         grille,score = regeneration(grille,score)	
         liste_combis = recherche_combinaison_grille(grille)
-        affichage_grille(grille)
+        affichage_grille(grille,4)
 if score >= score_max :
     print(f"Félicitations vous avez gagné. Votre score est de {score}")
 if compteur_coups >= nb_coups_max :
