@@ -5,6 +5,37 @@ Created on 16/03/2023
 import matplotlib.pyplot as plt
 import random
 
+def valide_directions(i,j,grille):
+    '''permet d'observer les directions dans lesquels des changements sont possibles en fonction de la position
+    un bonbon dans un coin n'aura que deux directions possibles pour un échange
+    renvoie une liste de chaine de caractères des directions possibles'''
+    
+    directions_txt = ["gauche","droite","haut","bas"]
+    gauche = True
+    droite = True
+    haut = True
+    bas = True
+    directions_bool = [gauche,droite,haut,bas]
+    
+  
+    if j == 0:
+        directions_bool[0] = False
+    if j == len(grille)-1:
+        directions_bool[1] = False
+    if i == 0:
+        directions_bool[2] = False
+    if i == len(grille)-1:
+        directions_bool[3] = False
+    
+
+    directions_possibles = []
+    for k in range(len(directions_bool)):
+        if directions_bool[k] == True:
+            directions_possibles.append(directions_txt[k])
+            
+    return directions_possibles
+
+
 def switch_directions(grille,i,j,choix_directions,compteur_coups):
     '''Automatise les changements de bonbons en fonction de la direction
     a besoin de la direction, des coordonnées du bonbon visé, de la grille et du compteur de coups
@@ -48,11 +79,6 @@ def echange_coords(grille,compteur_coups):
     switch = False
     while not switch:
 
-        gauche = True
-        droite = True
-        haut = True
-        bas = True
-        
         i = int(input("Entrer la ligne du bonbon séléctionné : "))
         j = int(input("Entrer la colonne du bonbon séléctionné : "))
         
@@ -65,13 +91,7 @@ def echange_coords(grille,compteur_coups):
         if j == len(grille)-1:
             droite = False
             
-        directions_txt = ["gauche","droite","haut","bas"]
-        directions_bool = [gauche,droite,haut,bas]
-        
-        directions_possibles = []
-        for k in range(len(directions_bool)):
-            if directions_bool[k] == True:
-                directions_possibles.append(directions_txt[k])
+        directions_possibles = valide_directions(i,j,grille)
                 
         choix_directions = input("Veuillez choisir une direction parmi: " + ", ".join(directions_possibles) + "\n")
         choix_directions = choix_directions.lower()    
