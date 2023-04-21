@@ -240,8 +240,9 @@ def elimination(grille,liste_combi,score):
     for i in range(len(liste_combi)):
         x = liste_combi[i][0]
         y = liste_combi[i][1]
-        grille[x][y] = 0
-        score += 10
+        if grille[x][y]!=0:
+            grille[x][y] = 0
+            score += 10
     return grille, score
 
 
