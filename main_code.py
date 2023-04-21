@@ -175,15 +175,32 @@ def detecte_coordonnees_combinaison(grille,i,j):
 
     
 def recherche_combinaison_grille(grille):
-    '''parcourt toute la grille et trouve toutes les combinaisons pour les mettre dans une liste (ttes_combis)
-    parcourt ttes_combis et supprime toutes les listes dupliquées pour avoir une seule liste par combinaison dans la grille
-    renvoie la liste de ttes_combis'''
+    """
+    fonction qui parcourt toute la grille et trouve toutes les combinaisons pour les mettre dans une liste (ttes_combis), puis
+    parcourt ttes_combis et crée une liste où sont supprimées toutes les coordonnées dupliquées pour que chacune n'apparaisse qu'une fois
+
+    Parameters
+    ----------
+    grille : liste de listes (tableau 2D)
+        la grille de jeu
+
+    Returns
+    -------
+    combis_sans_doubles : liste de listes 
+        liste contenant les coordonnées de tous les bonbons impliqués dans une combinaison dans la grille
+
+    """
+    '''
+    renvoie la liste de listes combis_sans_doubles'''
     ttes_combis = []
     for i in range (len(grille)):
-        for j in range(len(grille)):
-            if (not detecte_coordonnees_combinaison(grille,i,j) in ttes_combis) and detecte_coordonnees_combinaison(grille,i,j) != []:
-                ttes_combis += (detecte_coordonnees_combinaison(grille,i,j))
-    return ttes_combis
+        for j in range(len(grille[i])):
+            ttes_combis += (detecte_coordonnees_combinaison(grille,i,j))
+    combis_sans_doubles = []
+    for coord in ttes_combis :
+        if coord not in combis_sans_doubles :
+            combis_sans_doubles.append(coord)
+    return combis_sans_doubles
 
 
 def gravite(grille):
