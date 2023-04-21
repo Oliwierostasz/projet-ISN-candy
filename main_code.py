@@ -396,7 +396,7 @@ score_max = 2000
 compteur_coups=0
 nb_coups_max = 30
 affichage_grille(grille, 4)
-while score < score_max and compteur_coups < nb_coups_max :
+while score < score_max and compteur_coups < nb_coups_max and verification_deadlock(grille) == False:
     grille,compteur_coups = echange_coords(grille,compteur_coups)
     print(f"Il vous reste {nb_coups_max-compteur_coups} coups sur {nb_coups_max}")
     grille,score = regeneration(grille,score)
@@ -405,4 +405,6 @@ if score >= score_max :
     print(f"Félicitations vous avez gagné. Votre score final est de {score}.")
 if compteur_coups >= nb_coups_max :
     print(f"Vous n'avez pas réussi à atteindre l'objectif? Votre score final était de {score}")
+if verification_deadlock(grille) == True:
+    print(f"Vous avez atteint une grille irrésolvable. Votre score final était de {score}")
 
