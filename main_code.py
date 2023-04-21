@@ -330,24 +330,6 @@ def gen_grille_init(size):
         liste_combi = recherche_combinaison_grille(grille)
     return grille
 
-
-def tests_combinaisons(i,j,a,b,grille,cpt_combis):
-    '''Une fonction qui teste simplement si les échanges donnent des combinaisons
-    prend comme input i et j les coordonnées du bonbon de base (on va faire parcourir tous les i et j)
-    prend comme input a et b, deux variables qui dépendent de la fonction verif_deadlock et valide_direction et qui varient selon la direction voulue pour le changement
-    renvoie le nombre de combinaisons trouvées
-    '''
-    grille[i][j],grille[i+a][j+b]=grille[i+a][j+b],grille[i][j]
-    
-    if detecte_coordonnees_combinaison(grille,i,j) == [] and detecte_coordonnees_combinaison(grille,i+a,j+b) == []:
-        grille[i][j],grille[i+a][j+b]=grille[i+a][j+b],grille[i][j]
-        
-    else :
-        cpt_combis += 1
-        grille[i][j],grille[i+a][j+b]=grille[i+a][j+b],grille[i][j]
-
-    return cpt_combis
-
 def valide_directions(i,j,grille):
     '''une fonction pour déterminer plus facilement dans quelle direction on peut faire des échanges
     renvoie une liste de chaines de caractères avec les directions valables'''
@@ -368,8 +350,7 @@ def valide_directions(i,j,grille):
         directions_bool[2] = False
     if i == len(grille)-1:
         directions_bool[3] = False
-    
-
+        
     directions_possibles = []
     for k in range(len(directions_bool)):
         if directions_bool[k] == True:
@@ -377,26 +358,37 @@ def valide_directions(i,j,grille):
             
     return directions_possibles
 
-def verification_deadlock(grille):
-    '''parcourt toute la grille
-    pour chaque bonbon determine dans quelles directions on peut échanger (valide_directions
-    simule les echanges pour chaque cas valable (tests_combinaisons)
-    si il detecte plus d'une combinaison, renvoie EN THEORIE un booleen True pour indiquer qu'un echange et possible
-    renvoie false sinon'''
+def tests_combinaisons(i,j,a,b,grille,cpt_combis):
+    '''Une fonction qui teste simplement si les échanges donnent des combinaisons
+    prend comme input i et j les coordonnées du bonbon de base (on va faire parcourir tous les i et j)
+    prend comme input a et b, deux variables qui dépendent de la fonction verif_deadlock et valide_direction et qui varient selon la direction voulue pour le changement
+    renvoie le nombre de combinaisons trouvées
+    '''
+    grille[i][j],grille[i+a][j+b]=grille[i+a][j+b],grille[i][j]
     
+    if detecte_coordonnees_combinaison(grille,i,j) == [] and detecte_coordonnees_combinaison(grille,i+a,j+b) == []:
+        grille[i][j],grille[i+a][j+b]=grille[i+a][j+b],grille[i][j]
+        
+    else :
+        cpt_combis += 1
+        grille[i][j],grille[i+a][j+b]=grille[i+a][j+b],grille[i][j]
+    
+    return cpt_combis
+
+
+def verification_deadlock(grille):
+    cpt_combis = 0
     line = 0
     column = 0
-    cpt_combis = 0
-    switch_possible = False
-    while line != len(grille)-1 and column != len(grille)-1:
-            #tant qu'un switch possible n'est pas trouvé ou qu'on a exploré toute la grille
-            for i in range(len(grille)):
-                line = i
-                for j in range(len(grille)):
-                    column = j
-                    
-                directions_possibles = valide_directions(i,j,grille)
-                        
+    deadlock = True
+    while column != len(grille)-1 and line != len(grille)-1:
+        for i in range(len(grille)):
+            line = i
+            for j in range(len(grille)):
+                column = j
+            
+                directions_possibles = valide_directions(i,j,board)
+                                
                 for k in range(len(directions_possibles)):
                     direction_selectionnee = directions_possibles[k]
                     if direction_selectionnee == "haut":
@@ -412,12 +404,14 @@ def verification_deadlock(grille):
                         a = 0
                         b = -1
                         
-                    cpt_combis = tests_combinaisons(i,j,a,b,grille,cpt_combis)
-
-    if cpt_combis != 0:
-        switch_possible = True
+                    cpt_combis += tests_combinaisons(i,j,a,b,board,cpt_combis)
         
-    return switch_possible    
+    if cpt_combis != 0:
+        deadlock = False
+    if cpt_combis == 0:
+        deadlock = True   
+    
+    return deadlock   
 
 
 def affichage_grille(grille, nb_type_bonbons):
