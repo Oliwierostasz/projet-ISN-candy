@@ -216,6 +216,7 @@ def gravite(grille):
             for c2 in range(len(g)):
                 if g[l2-1][c2]!=0 and g[l2][c2]==0:
                       trie = False
+    affichage_grille(g,4)                    
     return(g)
 
 
@@ -244,14 +245,16 @@ def elimination(grille,liste_combi,score):
     return grille, score
 
 
+
 def regeneration(grille,score):
     """
     fonction qui parcourt la grille et remplace toutes les cases vides par un 
     bonbon d'une nouvelle couleur aléatoire, c'est à dire que les cases de 
     valeur 0 prennent une valeur aléatoire de 1 à 4
-    si de nouvelles combinaisons créées, supprime les bonbons et ajoute points 
+    Quand des combinaisons sont créées, supprime les bonbons et ajoute points 
     au score, puis refait tomber nouveaux bonbons avec gravité, et en génère 
     de nouveaux jusqu'à ce qu'il n'y ait plus de combinaison déjà faite
+    affiche la grille au fur et à mesure de sa modification
     Parameters
     ----------
     grille : liste 2D
@@ -266,10 +269,14 @@ def regeneration(grille,score):
             for j in range(len(grille[i])):
                 if grille[i][j]==0:
                     grille[i][j]= random.randint(1,4)
+        affichage_grille(grille,4)
         liste_combi = recherche_combinaison_grille(grille)
-        grille, score = elimination(grille,liste_combi,score)
-        grille = gravite(grille)
+        if liste_combi != []:
+            grille, score = elimination(grille,liste_combi,score)
+            affichage_grille(grille,4)
+            grille = gravite(grille)
     return grille, score
+
 
 
 def gen_grille_init(size):
@@ -413,21 +420,17 @@ def affichage_grille(grille, nb_type_bonbons):
 size = 8
 grille = gen_grille_init(size)
 score=0
-score_max = 300
+score_max = 2000
 compteur_coups=0
 nb_coups_max = 30
-while score < score_max and compteur_coups < nb_coups_max:
-    affichage_grille(grille, 4)
+affichage_grille(grille, 4)
+while score < score_max and compteur_coups < nb_coups_max :
     grille,compteur_coups = echange_coords(grille,compteur_coups)
-    print(f"Il vous reste {nb_coups_max - compteur_coups} coups sur {nb_coups_max}")
-    liste_combis = recherche_combinaison_grille(grille)
-    while liste_combis != []:
-        grille,score = elimination(grille,liste_combis,score)
-        grille = gravite(grille)
-        grille,score = regeneration(grille,score)	
-        liste_combis = recherche_combinaison_grille(grille)
-        affichage_grille(grille,4)
+    print(f"Il vous reste {nb_coups_max-compteur_coups} coups sur {nb_coups_max}")
+    grille,score = regeneration(grille,score)
+    print(f"Votre score est de {score}. Il vous manque {score_max-score} points pour atteindre l'objectif.")
 if score >= score_max :
-    print(f"Félicitations vous avez gagné. Votre score est de {score}")
+    print(f"Félicitations vous avez gagné. Votre score final est de {score}.")
 if compteur_coups >= nb_coups_max :
     print(f"Vous n'avez pas réussi à atteindre l'objectif? Votre score final était de {score}")
+
