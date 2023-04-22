@@ -133,6 +133,43 @@ def detecte_coordonnees_combinaison(grille,i,j):
     return(liste_combi_f)
         
 
+def test_detecte_coordonnees_combinaison():
+    """
+    Teste la fonction detecte_coordonnees_combinaison(grille, i, j).
+    Pour chaque cas de test, affiche True si le test passe, False sinon
+    Pour éviter toute confusion par rapport à l'ordre dans lequel les combinaisons sont placées dans
+    la liste renvoyée par detecte_coordonnees_combinaison, on préfère vérifier que chaque coordonnée 
+    de bonbon impliquée dans la combinaison attendue est présente dans cette liste et qu'elle contient 
+    le bon nombre de valeurs
+    """
+    # Test1: bonbon situé sur la colonne la plus à gauche, sur la 2e ligne, impliqué dans combinaison de 3 bonbons verticalement et une de 4 horizontalement
+    grille = [[1,2,3,4],[1,1,1,1],[1,3,4,4],[2,2,3,1]]
+    i = 1
+    j = 0
+    liste_combis1 = detecte_coordonnees_combinaison(grille,i,j)
+    print(([i,j] and [0,0] and [2,0] and [1,1] and [1,2] and [1,3]) in liste_combis1 and len(liste_combis1)==6)
+          
+    # Test2 : bonbon situé à aucune ligne ou colonne extrême, impliqué dans une combinaison de 4 bonbons horizontalement et une de 4 verticalement    
+    grille=[[1,2,3,4],[2,2,2,2],[1,2,3,4],[1,2,3,4]]
+    i = 1
+    j = 1
+    liste_combis2 = detecte_coordonnees_combinaison(grille,i,j)
+    print(([i,j] and [0,1] and [2,1] and [3,1] and [1,0] and [1,2] and [1,3]) in liste_combis2 and len(liste_combis2)==7)
+    
+    #Test3 : bonbon situé dans le coin inférieur droit de la grille, impliqué dans une combinaison de 3 bonbons verticale
+    grille = [[1,2,3,4,3],[2,1,3,2,3],[1,2,2,3,4],[3,1,2,4,4],[1,2,4,3,4]]
+    i = 4
+    j = 4
+    liste_combis3 = detecte_coordonnees_combinaison(grille,i,j)
+    print(([i,j] and [3,4] and [2,4]) in liste_combis3 and len(liste_combis3)==3)
+    
+    #Test4 : bonbon situé au milieu d'une grille 3x3, impliqué dans aucune combinaison
+    grille = [[1,2,3],[3,4,2],[1,3,1]]
+    i = 1
+    j = 1
+    liste_combis4 = detecte_coordonnees_combinaison(grille,i,j)
+    print(len(liste_combis4)==0)
+    
     
 def recherche_combinaison_grille(grille):
     """
