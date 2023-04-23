@@ -6,6 +6,7 @@ Vous retrouverez sous maincode, le code principal avec les fonctions utilisées 
 Vous retrouverez sous le rapport, le modèle de rapport demandé duement rempli et expliquant les fonctions avec une docstring et le code principal en plus d'expliquer la difficulté et les règles de notre code. Celui-ci est mis en page dans le .odt téléchargeable et ainsi que la version non mise en forme ci dessous : 
 
 **Rapport du mini-projet Candy Crush**
+
 I.  Quel niveau de difficulté avez-vous implémenté ?
 
 Nous avons choisi d’imposer un nombre de coups maximum définissable dans le code ainsi un score à atteindre, le score pour une combinaison est de 30 points et le score à atteindre est de 2000 points. Ces données peuvent être changés pour ajuster la durée/difficulté du jeu.
