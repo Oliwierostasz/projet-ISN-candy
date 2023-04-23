@@ -21,15 +21,16 @@ III.  Écrivez l’algorithme principal de votre jeu en français
 
 
 def switch_directions(grille,i,j,choix_directions,compteur_coups):
-    '''Automatise les changements de bonbons en fonction de la direction
+    """
+    Automatise les changements de bonbons en fonction de la direction
     a besoin de la direction, des coordonnées du bonbon visé, de la grille et du compteur de coups
     effectue le changement;
     s'il n'est pas valable, switch = False, le compteur ne varie pas, la grille revient à son état d'origine
     S'il est valable, la grille est modifiée, le compteur de coups augmente, switch = true, on sort de la boucle
     renvoie: le booléen switch, le compteur, la grille (modifiée ou non)
-    '''
+    """
 def echange_coords(grille,compteur_coups):
-    '''
+    """
     Tant qu'un changement valable n'a pas été effectué:
     demande à l'utlisiateur un jeu de coordonnées
     vérifie s'il existe des bonbons dans les quatre directions
@@ -37,12 +38,14 @@ def echange_coords(grille,compteur_coups):
     si ce changement créé une nouvelle combinaison, on échange les bonbons
     si ce changement ne crée pas de nouvelle combinaison, on redemande un nouveau jeu de coordonnées qui marche
     renvoie la grille avec les bonbons échangés.
-    '''
+    """
 def scotch(grille):
-    """à patir d'une grille donnée, renvoie cette même grille entouré d'un scotch(de 0)
+    """
+    à patir d'une grille donnée, renvoie cette même grille entouré d'un scotch(de 0)
     """
 def detecte_coordonnees_combinaison(grille,i,j):
-    """Renvoie une liste contenant les coordonnées de tout
+    """
+    Renvoie une liste contenant les coordonnées de tout
     les bonbons appartenant à la combinaison du bonbon (i,j)
     """
 def test_detecte_coordonnees_combinaison():
