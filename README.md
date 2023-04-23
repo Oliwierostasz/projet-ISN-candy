@@ -21,6 +21,7 @@ III.  Écrivez l’algorithme principal de votre jeu en français
 
 
 def switch_directions(grille,i,j,choix_directions,compteur_coups):
+
     """
     Automatise les changements de bonbons en fonction de la direction
     a besoin de la direction, des coordonnées du bonbon visé, de la grille et du compteur de coups
@@ -30,6 +31,7 @@ def switch_directions(grille,i,j,choix_directions,compteur_coups):
     renvoie: le booléen switch, le compteur, la grille (modifiée ou non)
     """
 def echange_coords(grille,compteur_coups):
+
     """
     Tant qu'un changement valable n'a pas été effectué:
     demande à l'utlisiateur un jeu de coordonnées
@@ -40,6 +42,7 @@ def echange_coords(grille,compteur_coups):
     renvoie la grille avec les bonbons échangés.
     """
 def scotch(grille):
+
     """
     à patir d'une grille donnée, renvoie cette même grille entouré d'un scotch(de 0)
     """
@@ -49,16 +52,21 @@ def detecte_coordonnees_combinaison(grille,i,j):
     les bonbons appartenant à la combinaison du bonbon (i,j)
     """
 def test_detecte_coordonnees_combinaison():
+
     """
+    
     Teste la fonction detecte_coordonnees_combinaison(grille, i, j).
     Pour chaque cas de test, affiche True si le test passe, False sinon
     Pour éviter toute confusion par rapport à l'ordre dans lequel les combinaisons sont placées dans
     la liste renvoyée par detecte_coordonnees_combinaison, on préfère vérifier que chaque coordonnée 
     de bonbon impliquée dans la combinaison attendue est présente dans cette liste et qu'elle contient 
     le bon nombre de valeurs
+    
     """
 def recherche_combinaison_grille(grille):
+
     """
+    
     fonction qui parcourt toute la grille et trouve toutes les combinaisons pour les mettre dans une liste (ttes_combis), puis
     parcourt ttes_combis et crée une liste où sont supprimées toutes les coordonnées dupliquées pour que chacune n'apparaisse qu'une fois
 
@@ -74,6 +82,7 @@ def recherche_combinaison_grille(grille):
 
     """
 def gravite(grille):
+
     """
     fonction qui applique sur la grille la "gravité", faisant descendre dans la grille les bonbons (cases de valeur non nulle) jusqu'à avoir toutes les
     cases vides (0) situées le plus haut possible sans aucun bonbon au dessus
@@ -89,6 +98,7 @@ def gravite(grille):
 
     """
 def elimination(grille,liste_combi,score):
+
     """
     fonction qui remplace par des zéros les valeurs dans les cases dont les 
     coordonnées apparaissent dans liste_combi
@@ -106,6 +116,7 @@ def elimination(grille,liste_combi,score):
 
     """
 def regeneration(grille,score):
+
     """
     fonction qui parcourt la grille et remplace toutes les cases vides par un 
     bonbon d'une nouvelle couleur aléatoire, c'est à dire que les cases de 
@@ -123,6 +134,7 @@ def regeneration(grille,score):
     grille, score
     """
 def gen_grille_init(size):
+
     """
     fonction qui génère une liste de listes (grille) dont les valeurs
     sont des nombres de 1 à 4, et recherche les combinaisons qui 
@@ -139,18 +151,23 @@ def gen_grille_init(size):
     grille (liste de listes)
     """
 def valide_directions(i,j,grille):
+
     '''une fonction pour déterminer plus facilement dans quelle direction on peut faire des échanges
     renvoie une liste de chaines de caractères avec les directions valables'''
 
 def tests_combinaisons(i,j,a,b,grille,cpt_combis):
+
     '''Une fonction qui teste simplement si les échanges donnent des combinaisons
     prend comme input i et j les coordonnées du bonbon de base (on va faire parcourir tous les i et j)
     prend comme input a et b, deux variables qui dépendent de la fonction verif_deadlock et valide_direction et qui varient selon la direction voulue pour le changement
     renvoie le nombre de combinaisons trouvées
     '''
 def affichage_grille(grille, nb_type_bonbons):
+
     """ Affiche la grille de jeu "grille" contenant au maximum "nb_type_bonbons" couleurs de bonbons différentes.
     """
+    
+    
 size = 8
 grille = gen_grille_init(size)
 score=0
