@@ -19,6 +19,7 @@ Ainsi, le principe du jeu est d’aligner 3 bonbons de même couleur pour obteni
 
 III.  Écrivez l’algorithme principal de votre jeu en français
 
+
 def switch_directions(grille,i,j,choix_directions,compteur_coups):
     '''Automatise les changements de bonbons en fonction de la direction
     a besoin de la direction, des coordonnées du bonbon visé, de la grille et du compteur de coups
